@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Grade(
     StudentID TEXT REFERENCES Student ON UPDATE CASCADE ON DELETE RESTRICT,
     CourseID TEXT REFERENCES Courses ON UPDATE CASCADE ON DELETE RESTRICT,
     Grade Integer,
-    PRIMARY KEY (StudentID,CourseID,Grade),
+    PRIMARY KEY (StudentID, CourseID, Grade),
     FOREIGN KEY (StudentID) REFERENCES Student (ID) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (CourseID) REFERENCES Courses (ID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -32,19 +32,26 @@ ALTER TABLE StudentInfo RENAME TO Student;
 ALTER TABLE Grade RENAME TO GradeInfo;
 ALTER TABLE GradeInfo RENAME TO Grade;
 
-INSERT INTO Courses (ID, Name, Teacher, Semester, Year) VALUES ("SD1", "SD", "Line", "Autumn", 2019),("SD2", "SD", "Line", "Spring", 2020),("ES1", "ES", "Ebbe", "Autumn", 2019);
+INSERT INTO Courses (ID, Name, Teacher, Semester, Year) VALUES ('SD1', 'SD', 'Line', 'Autumn', 2019),
+                                                               ('SD2', 'SD', 'Line', 'Spring', 2020),
+                                                               ('ES1', 'ES', 'Ebbe', 'Autumn', 2019);
 
-INSERT INTO Student (ID, Name, City, ZipCode, Country) VALUES ("AILI","Aisha Lincoln", "Nykøbing F", 4800, "Denmark"),("ANNI","Anya Nielsen","Nykøbing F", 4800, "Denmark"),
-                                                              ("ALJE","Alfred Jensen", "Karlskrona", null, "Sweden"),("BEBE","Berta Bertelsen", "Billund", 7190, "Denmark"),
-                                                              ("ALAN","Albert Antonsen", "Sorø", 4180, "Denmark"),("ESER","Eske Eriksen", "Eskildstrup", 4863, "Denmark"),
-                                                              ("OLOL","Olaf Olesen", "Odense", 5000, "Denmark"),("SASI","Salma Simonsen", "Stockholm", null, "Sweden"),
-                                                              ("THTH","Theis Thomasen", "Tølløse", 4340, "Denmark"),("JAJE","Janet Jensen", "Jyllinge", 4040, "Denmark");
+INSERT INTO Student (ID, Name, City, ZipCode, Country) VALUES ('AILI', 'Aisha Lincoln', 'Nykøbing F', 4800, 'Denmark'),
+                                                              ('ANNI', 'Anya Nielsen', 'Nykøbing F', 4800, 'Denmark'),
+                                                              ('ALJE', 'Alfred Jensen', 'Karlskrona', null, 'Sweden'),
+                                                              ('BEBE', 'Berta Bertelsen', 'Billund', 7190, 'Denmark'),
+                                                              ('ALAN', 'Albert Antonsen', 'Sorø', 4180, 'Denmark'),
+                                                              ('ESER', 'Eske Eriksen', 'Eskildstrup', 4863, 'Denmark'),
+                                                              ('OLOL', 'Olaf Olesen', 'Odense', 5000, 'Denmark'),
+                                                              ('SASI', 'Salma Simonsen', 'Stockholm', null, 'Sweden'),
+                                                              ('THTH', 'Theis Thomasen', 'Tølløse', 4340, 'Denmark'),
+                                                              ('JAJE', 'Janet Jensen', 'Jyllinge', 4040, 'Denmark');
 
-INSERT INTO Grade (StudentID, CourseID, Grade) VALUES ("AILI",0,12), ("AILI",2,10),("ANNI",1,null),("ANNI",2,12),
-                                                      ("ALJE",0,7), ("ALJE",2,10),("BEBE",1,null),("BEBE",2,2),
-                                                      ("ALAN",0,10),("ALAN",2,7),("ESER",1,null),("ESER",2,10),
-                                                      ("OLOL",0,4), ("OLOL",2,12),("SASI",1,null),("SASI",2,12),
-                                                      ("THTH",0,12),("THTH",2,12),("JAJE",1,null),("JAJE",2,7);
+INSERT INTO Grade (StudentID, CourseID, Grade) VALUES ('AILI',0,12), ('AILI',2,10),('ANNI',1,null),('ANNI',2,12),
+                                                      ('ALJE',0,7), ('ALJE',2,10),('BEBE',1,null),('BEBE',2,2),
+                                                      ('ALAN',0,10),('ALAN',2,7),('ESER',1,null),('ESER',2,10),
+                                                      ('OLOL',0,4), ('OLOL',2,12),('SASI',1,null),('SASI',2,12),
+                                                      ('THTH',0,12),('THTH',2,12),('JAJE',1,null),('JAJE',2,7);
 
 -- Shows all data provided
 SELECT Courses.ID, Courses.Name, Courses.Semester, Courses.Year, Courses.Teacher, Grade.Grade, Student.ID, Student.Name
@@ -69,7 +76,7 @@ FROM Student LEFT JOIN Grade ON Student.ID= Grade.StudentID
              LEFT JOIN Courses ON Grade.CourseID = Courses.ID
 WHERE Courses.ID = ?;
 
--- Average grade from Grade Table
+-- Shows average grade from Grade Table
 SELECT AVG(Grade)
 FROM Grade;
 
