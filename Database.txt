@@ -112,7 +112,7 @@ FROM Courses AS C1
          JOIN Grade AS G1 ON C1.ID = G1.CourseID
 WHERE Grade IS NULL;
 
--- Update the student grade if they value is null
+-- Update the student grade if their value is null
 UPDATE Grade
 SET Grade = ? WHERE StudentID = ? AND CourseID = ? AND Grade IS NULL;
 
