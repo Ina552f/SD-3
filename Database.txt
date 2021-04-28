@@ -32,7 +32,7 @@ ALTER TABLE StudentInfo RENAME TO Student;
 ALTER TABLE Grade RENAME TO GradeInfo;
 ALTER TABLE GradeInfo RENAME TO Grade;
 
-INSERT INTO Courses (ID, CourseName, Teacher, Semester, Year) VALUES ("SD1", "SD", "Line", "Autumn", 2019),("SD2", "SD", "Line", "Spring", 2020),("ES1", "ES", "Ebbe", "Autumn", 2019);
+INSERT INTO Courses (ID, Name, Teacher, Semester, Year) VALUES ("SD1", "SD", "Line", "Autumn", 2019),("SD2", "SD", "Line", "Spring", 2020),("ES1", "ES", "Ebbe", "Autumn", 2019);
 
 INSERT INTO Student (ID, Name, City, ZipCode, Country) VALUES ("AILI","Aisha Lincoln", "Nykøbing F", 4800, "Denmark"),("ANNI","Anya Nielsen","Nykøbing F", 4800, "Denmark"),
                                                               ("ALJE","Alfred Jensen", "Karlskrona", null, "Sweden"),("BEBE","Berta Bertelsen", "Billund", 7190, "Denmark"),
