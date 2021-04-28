@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS Courses;
 DROP TABLE IF EXISTS Grade;
 DROP TABLE IF EXISTS Student;
-DROP TABLE IF EXISTS Teacher;
 
 CREATE TABLE IF NOT EXISTS  Courses(
     ID TEXT NOT NULL PRIMARY KEY,
@@ -25,24 +24,15 @@ CREATE TABLE IF NOT EXISTS Student(
     ZipCode Integer,
     Country Text
 );
-CREATE TABLE IF NOT EXISTS Teacher(
-    CourseID TEXT REFERENCES Courses ON UPDATE CASCADE ON DELETE RESTRICT,
-    Name Text,
-    CourseYear Integer,
-    CourseSemester TEXT,
-    PRIMARY KEY (CourseID,Name, CourseYear),
-    FOREIGN KEY (CourseID) REFERENCES Courses (ID) ON DELETE RESTRICT ON UPDATE CASCADE
-);
+
 ALTER TABLE Courses RENAME TO CourseInfo;
 ALTER TABLE CourseInfo RENAME TO Courses;
 ALTER TABLE Student RENAME TO StudentInfo;
 ALTER TABLE StudentInfo RENAME TO Student;
 ALTER TABLE Grade RENAME TO GradeInfo;
 ALTER TABLE GradeInfo RENAME TO Grade;
-ALTER TABLE Teacher RENAME TO TeacherInfo;
-ALTER TABLE TeacherInfo RENAME TO Teacher;
 
-INSERT INTO Courses (ID, CourseName, Teacher, Semester, Year) VALUES (0, "SD", "Line", "Autumn", 2019),(1, "SD", "Line", "Spring", 2020),(2, "ES", "Ebbe", "Autumn", 2019);
+INSERT INTO Courses (ID, CourseName, Teacher, Semester, Year) VALUES ("SD1", "SD", "Line", "Autumn", 2019),("SD2", "SD", "Line", "Spring", 2020),("ES1", "ES", "Ebbe", "Autumn", 2019);
 
 INSERT INTO Student (ID, Name, City, ZipCode, Country) VALUES ("AILI","Aisha Lincoln", "Nykøbing F", 4800, "Denmark"),("ANNI","Anya Nielsen","Nykøbing F", 4800, "Denmark"),
                                                               ("ALJE","Alfred Jensen", "Karlskrona", null, "Sweden"),("BEBE","Berta Bertelsen", "Billund", 7190, "Denmark"),
@@ -55,5 +45,3 @@ INSERT INTO Grade (StudentID, CourseID, Grade) VALUES ("AILI",0,12), ("AILI",2,1
                                                       ("ALAN",0,10),("ALAN",2,7),("ESER",1,null),("ESER",2,10),
                                                       ("OLOL",0,4), ("OLOL",2,12),("SASI",1,null),("SASI",2,12),
                                                       ("THTH",0,12),("THTH",2,12),("JAJE",1,null),("JAJE",2,7);
-
-INSERT INTO Teacher (CourseID, Name, CourseYear, CourseSemester) VALUES ("SD1","Line",2019,"Autumn"),("SD2","Line",2020,"Spring"),("ES1","Ebbe",2019,"Autumn");
