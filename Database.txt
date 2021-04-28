@@ -45,3 +45,70 @@ INSERT INTO Grade (StudentID, CourseID, Grade) VALUES ("AILI",0,12), ("AILI",2,1
                                                       ("ALAN",0,10),("ALAN",2,7),("ESER",1,null),("ESER",2,10),
                                                       ("OLOL",0,4), ("OLOL",2,12),("SASI",1,null),("SASI",2,12),
                                                       ("THTH",0,12),("THTH",2,12),("JAJE",1,null),("JAJE",2,7);
+
+-- Shows all data provided
+SELECT Courses.ID, Courses.Name, Courses.Semester, Courses.Year, Courses.Teacher, Grade.Grade, Student.ID, Student.Name
+FROM Student LEFT JOIN Grade ON Student.ID = Grade.StudentID
+             LEFT JOIN Courses ON Grade.CourseID = Courses.ID
+GROUP BY Courses.Name, Student.ID;
+
+-- Shows student name, courses and grades
+SELECT G1.StudentID, S1.Name, C1.Name, G1.CourseID, G1.Grade
+FROM Courses AS C1 JOIN Grade AS G1 ON C1.ID = G1.CourseID
+                   LEFT JOIN Student AS S1 ON G1.StudentID = S1.ID
+WHERE G1.StudentID = ?;
+
+-- Retrieves courses taken and grade from selected student
+SELECT S1.Name, G1.StudentID, G1.Grade
+FROM Student AS S1 JOIN Grade AS G1 ON S1.ID = G1.StudentID
+WHERE StudentID = ?;
+
+-- Shows how many students attend a specific course
+SELECT Student.ID, Grade.Grade, Student.Name, Courses.ID, Courses.Name, Courses.Semester, Courses.Year, Courses.Teacher
+FROM Student LEFT JOIN Grade ON Student.ID= Grade.StudentID
+             LEFT JOIN Courses ON Grade.CourseID = Courses.ID
+WHERE Courses.ID = ?;
+
+-- Average grade from Grade Table
+SELECT AVG(Grade)
+FROM Grade;
+
+-- Shows the average grade of students from the courses
+SELECT Student.ID, AVG(Grade.Grade) AS avgGrade
+FROM Student LEFT JOIN Grade ON Student.ID= Grade.StudentID
+GROUP BY Student.ID;
+
+-- Shows the average grade of individual courses
+SELECT Courses.ID, AVG(Grade.Grade) AS avgClassGrade
+FROM Courses LEFT JOIN Grade ON Courses.ID = Grade.CourseID
+GROUP BY Courses.ID;
+
+-- Shows the conditions for searching student name, course and grade
+SELECT G1.StudentID, S1.Name, C1.Name, G1.CourseID, G1.Grade
+FROM Courses AS C1 JOIN Grade AS G1 ON C1.ID = G1.CourseID
+                  LEFT JOIN Student AS S1 ON G1.StudentID = S1.ID
+WHERE G1.StudentID = ? AND G1.CourseID = ?;
+
+-- Shows average grade for selected student ID
+SELECT S1.Name, avg(G1.Grade)
+FROM Student AS S1 JOIN Grade AS G1 ON G1.StudentID = S1.ID
+WHERE G1.StudentID = ?;
+
+-- Shows average grade for selected course ID
+SELECT  C1.Name, avg(G1.Grade)
+FROM Courses AS C1 JOIN Grade AS G1 ON C1.ID = G1.CourseID
+WHERE G1.CourseID = ?;
+
+-- Shows courses which have not given grade yet
+SELECT DISTINCT C1.ID, C1.Name, C1.Teacher, C1.Semester, C1.Year
+FROM Courses AS C1
+         JOIN Grade AS G1 ON C1.ID = G1.CourseID
+WHERE Grade IS NULL;
+
+-- Update the student grade if they value is null
+UPDATE Grade
+SET Grade = ? WHERE StudentID = ? AND CourseID = ? AND Grade IS NULL;
+
+-- Update the student grade
+UPDATE Grade
+SET Grade = ? WHERE StudentID = ? AND CourseID = ?;
