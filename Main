@@ -1,32 +1,20 @@
 package com.company;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.*;
-import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import static java.sql.DriverManager.getConnection;
+public class Main extends Application {
+    private Object SDModel;
 
-public class Main {
-
-    // Connecting to my database
-    public static void main(String[] args) {
+    @Override
+    public void start(Stage primaryStage) throws Exception{
         String url = "jdbc:sqlite:C:\\Users\\krist\\IdeaProjects\\testwss\\src\\spliteSetupTest";
-        SDModel MDL = new SDModel(url);
-        try {
-            MDL.connect();
-            MDL.CreateStatement();
-            ArrayList<String> names = MDL.SQLQueryStudentData();
-            MDL.PrintStudentData(names);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        finally {
-            try {
-                MDL.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        SDModel studModel = new SDModel(url);
+        SDController control = new SDController(SDModel);
+        SDView view = new SDView(control);
+        control.setView(view);
+        primaryStage.setTitle("Index over courses, students and their grades");
+        primaryStage.setScene(new Scene(view.asParent(), 700, 500));
+        primaryStage.show();
     }
 }
