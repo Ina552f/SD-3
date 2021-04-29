@@ -1,20 +1,23 @@
 package com.company;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private Object SDModel;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         String url = "jdbc:sqlite:C:\\Users\\krist\\IdeaProjects\\testwss\\src\\spliteSetupTest";
-        SDModel studModel = new SDModel(url);
-        SDController control = new SDController(SDModel);
+        SDModel sdmodel = new SDModel(url);
+        SDController control = new SDController(sdmodel);
         SDView view = new SDView(control);
         control.setView(view);
         primaryStage.setTitle("Index over courses, students and their grades");
         primaryStage.setScene(new Scene(view.asParent(), 700, 500));
         primaryStage.show();
+    }
+    public static void main(String[] args){
+        launch(args);
     }
 }
