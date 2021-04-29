@@ -1,1 +1,19 @@
-sdjsdkn
+package com.company;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        String url = "jdbc:sqlite:C:\\Users\\krist\\IdeaProjects\\testwss\\src\\spliteSetupTest";
+        SDModel studModel = new SDModel(url);
+        SDController control = new SDController(SDModel);
+        SDView view = new SDView(control);
+        control.setView(view);
+        primaryStage.setTitle("Index over courses, students and their grades");
+        primaryStage.setScene(new Scene(view.asParent(), 700, 500));
+        primaryStage.show();
+    }
+}
