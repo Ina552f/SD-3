@@ -1,0 +1,32 @@
+package com.company;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+
+import static java.sql.DriverManager.getConnection;
+
+public class Main {
+
+    // Connecting to my database
+    public static void main(String[] args) {
+        String url = "jdbc:sqlite:C:\\Users\\krist\\IdeaProjects\\testwss\\src\\spliteSetupTest";
+        SDModel MDL = new SDModel(url);
+        try {
+            MDL.connect();
+            MDL.CreateStatement();
+            ArrayList<String> names = MDL.SQLQueryStudentData();
+            MDL.PrintStudentData(names);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                MDL.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+}
